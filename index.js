@@ -18,7 +18,7 @@ let aux = '';
 for (let l = 0; l < linhas; l++) {
     aux += `<div class="linha">`;
     for (let c = 0; c < colunas; c++) {
-        aux += `<button class="limpo" data-l="${l}" data-c="${c}" onclick="limpa(this)">?</button>`;
+        aux += `<button class="limpo" data-l="${l}" data-c="${c}" onclick="limpa(this)" oncontextmenu="toggleBandeira(event)">?</button>`;
     }
     aux += `</div>`;
 }
@@ -49,15 +49,7 @@ function limpa(botao) {
         primeiroClique = false;
     }
 
-    if (jogo[l][c] === 1) {
-        explode();
-        return;
-    }
-
-    let bombas = contarBombasVizinhas(l, c);
-    botao.innerHTML = bombas;
-    botao.disabled = true;
-    botao.classList.add("limpo");
+    revelarCelula(l, c);
 }
 
 function contarBombasVizinhas(l, c) {
@@ -92,4 +84,50 @@ function explode() {
         }
         botao.disabled = true;
     });
+}
+
+function revelarCelula(l, c) {
+    // Verifica limites
+    if (l < 0 || l >= linhas || c < 0 || c >= colunas) return;
+
+    let botao = document.querySelector(`button[data-l='${l}'][data-c='${c}']`);
+
+    if (!botao || botao.disabled) return;
+
+    if (jogo[l][c] === 1) {
+        explode();
+        return;
+    }
+
+    let bombas = contarBombasVizinhas(l, c);
+    botao.innerHTML = bombas === 0 ? "" : bombas;
+    botao.disabled = true;
+    botao.classList.add("limpo");
+
+    // Se não há bombas ao redor, limpa vizinhos automaticamente
+    if (bombas === 0) {
+        for (let dl = -1; dl <= 1; dl++) {
+            for (let dc = -1; dc <= 1; dc++) {
+                let nl = l + dl;
+                let nc = c + dc;
+                if (nl === l && nc === c) continue; // pula ele mesmo
+                revelarCelula(nl, nc);
+            }
+        }
+    }
+}
+
+function toggleBandeira(event) {
+    event.preventDefault(); // impede o menu padrão do clique direito
+
+    const botao = event.target;
+
+    // Ignora se o botão já foi revelado
+    if (botao.disabled) return;
+
+    if (botao.innerHTML === "🚩") {
+        botao.innerHTML = "?";
+    } else {
+        botao.innerHTML = "🚩";
+    }
 }
