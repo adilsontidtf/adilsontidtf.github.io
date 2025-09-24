@@ -1,1 +1,0 @@
-# adilsontidtf.github.io
