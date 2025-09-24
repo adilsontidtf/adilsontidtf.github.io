@@ -14,15 +14,11 @@
     font-weight: bold;
 }
 
-/* Centraliza tudo na página */
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background-color: #f2f2f2;
+    margin: 0;
     font-family: sans-serif;
 }
 
@@ -53,7 +49,11 @@ body, html {
 
 /* Grade do jogo */
 #Jogo {
-    display: inline-block;
+    max-height: 80vh;
+    max-width: 90vw;
+    margin-top: 80px; /* para não ficar atrás do menu fixo */
+    overflow: auto;
+    border: 1px solid #ccc;
 }
 
 /* Estilo dos botões do campo */
@@ -68,4 +68,15 @@ button {
 /* Linhas como flex rows */
 .linha {
     display: flex;
+}
+
+#menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
