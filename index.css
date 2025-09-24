@@ -1,16 +1,4 @@
-  #Jogo {
-    display: inline-block;
-    margin-top: 10px;
-  }
-
-  button {
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
-    margin: 1px;
-  }
-
-  .bomba:disabled {
+ .bomba:disabled {
     background-color: red;
     color: white;
   }
@@ -20,29 +8,64 @@
     color: black;
   }
 
-  .linha {
-    display: flex;
-  }
-
   button.flag {
     background-color: orange;
     color: white;
     font-weight: bold;
 }
 
+/* Centraliza tudo na página */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    font-family: sans-serif;
+}
+
+/* Container do jogo */
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Botão de reiniciar */
 #btn-reiniciar {
-    background-color: #4CAF50;
+    background-color: #178bb9;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
-    margin-bottom: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
 }
 
 #btn-reiniciar:hover {
-    background-color: #3331bb;
+    background-color: #3462c5;
+}
+
+/* Grade do jogo */
+#Jogo {
+    display: inline-block;
+}
+
+/* Estilo dos botões do campo */
+button {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    margin: 1px;
+    cursor: pointer;
+}
+
+/* Linhas como flex rows */
+.linha {
+    display: flex;
 }

@@ -4,6 +4,8 @@ let linhas = Number(prompt("Número de linhas:"));  // y
 let jogo = []; // jogo[linha][coluna]
 let jogohtml = document.getElementById("Jogo");
 let primeiroClique = true;
+let reveladas = 0;   
+let venceu = false;
 
 // Inicializa matriz vazia
 for (let l = 0; l < linhas; l++) {
@@ -77,12 +79,17 @@ function contarBombasVizinhas(l, c) {
 
 function explode() {
     alert("BOMMMMMMM!");
-
     // Mostra todas as bombas
     let botoes = document.querySelectorAll("button");
     botoes.forEach(botao => {
         let l = Number(botao.dataset.l);
         let c = Number(botao.dataset.c);
+
+        // Skip buttons without valid coordinates
+        if (isNaN(l) || isNaN(c)) {
+            return;
+        }
+
         if (jogo[l][c] === 1) {
             botao.innerHTML = "💣";
             botao.classList.add("bomba");
@@ -95,7 +102,7 @@ function revelarCelula(l, c) {
     // Verifica limites
     if (l < 0 || l >= linhas || c < 0 || c >= colunas) return;
 
-    let botao = document.querySelector(`button[data-l='${l}'][data-c='${c}']`);
+    let botao = jogohtml.querySelector(`button[data-l='${l}'][data-c='${c}']`);
 
     if (!botao || botao.disabled) return;
 
