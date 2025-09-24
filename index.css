@@ -1,0 +1,25 @@
+  #Jogo {
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  button {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    margin: 1px;
+  }
+
+  .bomba:disabled {
+    background-color: red;
+    color: white;
+  }
+
+  .limpo:disabled {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .linha {
+    display: flex;
+  }
