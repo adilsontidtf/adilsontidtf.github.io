@@ -26,10 +26,15 @@ jogohtml.innerHTML = aux;
 
 // Gera bombas aleatórias, exceto na posição inicial e vizinhos
 function gerarBombas(evitarL, evitarC) {
+    totalSeguras = 0;
+
     for (let l = 0; l < linhas; l++) {
         for (let c = 0; c < colunas; c++) {
             if (Math.random() < 0.25 && !estaPerto(l, c, evitarL, evitarC)) {
                 jogo[l][c] = 1; // bomba
+            } else {
+                jogo[l][c] = 0; // célula segura
+                totalSeguras++;
             }
         }
     }
@@ -102,6 +107,9 @@ function revelarCelula(l, c) {
     let bombas = contarBombasVizinhas(l, c);
     botao.innerHTML = bombas === 0 ? "" : bombas;
     botao.disabled = true;
+    // Conta revelações apenas de células seguras
+    reveladas++;
+    verificaVitoria();
     botao.classList.add("limpo");
 
     // Se não há bombas ao redor, limpa vizinhos automaticamente
@@ -126,8 +134,32 @@ function toggleBandeira(event) {
     if (botao.disabled) return;
 
     if (botao.innerHTML === "🚩") {
-        botao.innerHTML = "?";
+    botao.innerHTML = "?";
+    botao.classList.remove("flag");
     } else {
         botao.innerHTML = "🚩";
+        botao.classList.add("flag");
     }
+}
+
+function verificaVitoria() {
+    if (venceu) return;
+
+    if (reveladas === totalSeguras) {
+        venceu = true;
+        alert("🎉 Parabéns! Você venceu!");
+        desabilitarTodos();
+    }
+}
+
+function desabilitarTodos() {
+    const botoes = document.querySelectorAll("button");
+    botoes.forEach(botao => {
+        botao.disabled = true;
+    });
+}
+
+function reiniciarJogo() {
+    // Limpa tudo e recarrega a página
+    location.reload();
 }

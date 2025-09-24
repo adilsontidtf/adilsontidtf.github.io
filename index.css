@@ -23,3 +23,16 @@
   .linha {
     display: flex;
   }
+
+  button.flag {
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+}
+
+#btn-reiniciar {
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
